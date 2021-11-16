@@ -44,6 +44,8 @@ extern "C" {
 #include "stm32_assert.h"
 #endif /* USE_FULL_ASSERT */
 
+#include <string.h>
+
 void Error_Handler(void);
 
 /* Private defines -----------------------------------------------------------*/
@@ -67,6 +69,9 @@ typedef struct
 	uint8_t small_letter;
 	uint8_t capital_letter;
 }letter_count_;
+#define SIGN_RECEIVED_MAX_COUNT 36
+#define SIGN_FILE_START '#'
+#define SIGN_FILE_END '$'
 
 #ifdef __cplusplus
 }
