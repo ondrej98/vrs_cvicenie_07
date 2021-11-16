@@ -84,6 +84,8 @@ void MX_USART2_UART_Init(void) {
 	LL_DMA_SetDataLength(DMA1, LL_DMA_CHANNEL_6, DMA_USART2_BUFFER_SIZE);
 	LL_DMA_EnableChannel(DMA1, LL_DMA_CHANNEL_6);
 	LL_USART_EnableDMAReq_RX(USART2);
+	LL_DMA_EnableIT_TC(DMA1, LL_DMA_CHANNEL_6);
+	LL_DMA_EnableIT_HT(DMA1, LL_DMA_CHANNEL_6);
 
 	/* USART2_TX Init */
 
@@ -151,14 +153,19 @@ void USART2_CheckDmaReception(void) {
 			- LL_DMA_GetDataLength(DMA1, LL_DMA_CHANNEL_6);
 	if (pos != old_pos) {
 		if (pos > old_pos) {
-			for(uint8_t i = old_pos; i < pos; i++)
-			{
+			for (uint8_t i = old_pos; i < pos; i++) {
 				uint8_t sign = bufferUSART2dma[i];
 				USART2_ProcessData(sign);
 			}
+			if (LL_DMA_IsActiveFlag_HT6(DMA1) == SET || LL_DMA_IsActiveFlag_TC6(DMA1) == SET) {
+				LL_DMA_DisableChannel(DMA1, LL_DMA_CHANNEL_6);
+				LL_DMA_SetDataLength(DMA1, LL_DMA_CHANNEL_6,
+						DMA_USART2_BUFFER_SIZE);
+				LL_DMA_EnableChannel(DMA1, LL_DMA_CHANNEL_6);
+				pos = DMA_USART2_BUFFER_SIZE
+						- LL_DMA_GetDataLength(DMA1, LL_DMA_CHANNEL_6);
+			}
 
-			LL_DMA_SetDataLength(DMA1, LL_DMA_CHANNEL_6, 0);
-			pos = DMA_USART2_BUFFER_SIZE - LL_DMA_GetDataLength(DMA1, LL_DMA_CHANNEL_6);
 		}
 	}
 	old_pos = pos;
