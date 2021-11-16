@@ -15,6 +15,7 @@ stm32f3xx_ll_dma.h:954:26:LL_DMA_GetDataLength	16	static
 stm32f3xx_ll_dma.h:983:22:LL_DMA_ConfigAddresses	24	static
 stm32f3xx_ll_dma.h:1017:22:LL_DMA_SetMemoryAddress	24	static
 stm32f3xx_ll_dma.h:1039:22:LL_DMA_SetPeriphAddress	24	static
+stm32f3xx_ll_dma.h:1315:26:LL_DMA_IsActiveFlag_TC6	16	static
 stm32f3xx_ll_dma.h:1392:26:LL_DMA_IsActiveFlag_HT6	16	static
 stm32f3xx_ll_dma.h:1814:22:LL_DMA_EnableIT_TC	16	static
 stm32f3xx_ll_dma.h:1833:22:LL_DMA_EnableIT_HT	16	static
@@ -28,7 +29,7 @@ stm32f3xx_ll_usart.h:3191:22:LL_USART_DisableIT_CTS	16	static
 stm32f3xx_ll_usart.h:3365:22:LL_USART_EnableDMAReq_RX	16	static
 stm32f3xx_ll_usart.h:3398:22:LL_USART_EnableDMAReq_TX	16	static
 stm32f3xx_ll_usart.h:3468:26:LL_USART_DMA_GetRegAddr	16	static
-usart.c:30:6:USART2_RegisterCallback	16	static
-usart.c:40:6:MX_USART2_UART_Init	80	static
-usart.c:130:6:USART2_PutBuffer	16	static
-usart.c:146:6:USART2_CheckDmaReception	16	static
+usart.c:32:6:USART2_RegisterCallback	16	static
+usart.c:42:6:MX_USART2_UART_Init	80	static
+usart.c:132:6:USART2_PutBuffer	16	static
+usart.c:148:6:USART2_CheckDmaReception	16	static

@@ -22,6 +22,8 @@
 
 /* Memory buffer used directly by DMA for USART Rx*/
 uint8_t bufferUSART2dma[DMA_USART2_BUFFER_SIZE];
+extern buffer_capacity_ BufferCapacity;
+
 
 /* Declaration and initialization of callback function */
 static void (*USART2_ProcessData)(uint8_t data) = 0;
@@ -169,6 +171,8 @@ void USART2_CheckDmaReception(void) {
 		}
 	}
 	old_pos = pos;
+
+	BufferCapacity.reserved = old_pos;
 }
 
 /************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

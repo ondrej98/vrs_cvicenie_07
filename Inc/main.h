@@ -45,6 +45,7 @@ extern "C" {
 #endif /* USE_FULL_ASSERT */
 
 #include <string.h>
+#include <stdio.h>
 
 void Error_Handler(void);
 
@@ -69,9 +70,15 @@ typedef struct
 	uint8_t small_letter;
 	uint8_t capital_letter;
 }letter_count_;
+typedef struct
+{
+	uint16_t capacity;
+	uint16_t reserved;
+}buffer_capacity_;
 #define SIGN_RECEIVED_MAX_COUNT 36
 #define SIGN_FILE_START '#'
 #define SIGN_FILE_END '$'
+buffer_capacity_ BufferCapacity;
 
 #ifdef __cplusplus
 }

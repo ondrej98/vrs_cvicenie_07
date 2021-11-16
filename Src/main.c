@@ -40,6 +40,7 @@ void proccesDmaData(uint8_t sign);
 letter_count_ LetterCount;
 uint8_t SignStartDet = 0;
 uint8_t SignEndDet = 0;
+extern buffer_capacity_ BufferCapacity;
 
 int main(void) {
 	/* MCU Configuration--------------------------------------------------------*/
@@ -59,8 +60,13 @@ int main(void) {
 	/* Space for your local variables, callback registration ...*/
 
 	//type your code here:
-	USART2_RegisterCallback(proccesDmaData);
+	BufferCapacity.capacity = DMA_USART2_BUFFER_SIZE;
+	BufferCapacity.reserved = 0;
 
+	USART2_RegisterCallback(proccesDmaData);
+	uint8_t tx_message[] =
+			"Buffer capacity: %3d bytes, occupied memory: %3d bytes, load [in %%]: %.1f %%\r\n";
+	uint8_t tx_data[120];
 	while (1) {
 		/* Periodic transmission of information about DMA Rx buffer state.
 		 * Transmission frequency - 5Hz.
@@ -69,6 +75,15 @@ int main(void) {
 		 */
 
 		//type your code here:
+		float usage =
+				((float)BufferCapacity.reserved / (float)BufferCapacity.capacity)
+						* 100.0;
+		sprintf((char*) tx_data, (char*) tx_message, BufferCapacity.capacity,
+				BufferCapacity.reserved,
+				usage);
+		uint8_t tx_data_len = (uint8_t) strlen((char*) tx_data);
+		USART2_PutBuffer(tx_data, tx_data_len);
+		LL_mDelay(1000);
 	}
 	/* USER CODE END 3 */
 }
